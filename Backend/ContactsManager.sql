@@ -9,38 +9,22 @@ CREATE TABLE ContactsManager.Users (
 CREATE TABLE ContactsManager.Contacts (
   id INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
   userId INTEGER,
-  email TEXT NOT NULL,
-  telephone INTEGER NOT NULL,
-  whatsapp BOOLEAN NOT NULL,
+  email VARCHAR(100),
+  telephone VARCHAR(50),
+  whatsapp BOOLEAN,
   FOREIGN KEY (userId) REFERENCES ContactsManager.Users (id)
 );
 
 INSERT INTO
   ContactsManager.Users (username)
 VALUES
-  ("Marcos Campos");
-
-INSERT INTO
- ContactsManager.Users (username)
-VALUES
-  ("Patrícia Dias Viana");
-
-INSERT INTO
-  ContactsManager.Users (username)
-VALUES
+  ("Marcos Campos"),
+  ("Patrícia Dias Viana"),
   ("Allan Hubner");
 
 INSERT INTO
-  ContactsManager.Contacts (email, telephone, whatsapp)
+  ContactsManager.Contacts (userId, email, telephone, whatsapp)
 VALUES
-  ("marxmyers@icloud.com", 61123456789, true);
-
-INSERT INTO
-  ContactsManager.Contacts (, email, telephone, whatsapp)
-VALUES
-  ("patriciavianad@gmail.com", 11987654321, true);
-
-INSERT INTO
-  ContactsManager.Contacts (, email, telephone, whatsapp)
-VALUES
-  ("allanhubner@icloud.com", 11987554321, false);
+  (1, "marxmyers@icloud.com", 61123456789, true),
+  (2, "patriciavianad@gmail.com", 11987654321, true),
+  (3, "allanhubner@icloud.com", 11987554321, false);
