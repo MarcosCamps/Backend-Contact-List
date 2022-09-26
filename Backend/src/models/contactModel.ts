@@ -19,7 +19,7 @@ return { id: insertId, ...userContact };
 const getAllContacts = async () => {
   const query = 'SELECT * from ContactsManager.Contacts';
   const [users] = await connection.execute<ResultSetHeader>(query);
-  return users;
+  return users as unknown as IUser[];
 };
 
 const deleteContact = async (id: number) => {
@@ -27,4 +27,11 @@ const deleteContact = async (id: number) => {
   await connection.execute<ResultSetHeader>(query, [id]);
 }
 
-export { createContact, getAllContacts, deleteContact };
+const updateContact = async (user: IUser, id:number) => {
+  const { email, telephone, whatsapp } = user;
+  const query = `UPDATE ContactsManager.Contacts SET email=?, telephone=?, whatsapp=? WHERE id =?;`;
+  const value = [ email || null , telephone || null , whatsapp || null, id ];
+  await connection.execute<ResultSetHeader>(query, value);
+}
+
+export { createContact, getAllContacts, deleteContact, updateContact };

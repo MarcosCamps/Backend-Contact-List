@@ -1,10 +1,16 @@
+import CodeError from '../errors/CodeError';
 import { IUser } from '../interfaces/IUser';
-import { createContact, getAllContacts, deleteContact } from '../models/contactModel';
+import { createContact, getAllContacts, deleteContact, updateContact } from '../models/contactModel';
 
 const creatingContacts = async (userContact: IUser): Promise<IUser> => {
     const { userId } = userContact;
     if (!userId) {
-      throw new Error('UserId not informed');
+      throw new CodeError('UserId not informed', 400);
+    }
+    const contacts = await getAllContacts();
+    const exists = contacts.some((contact) => contact.id === userId)
+    if (!exists) {
+      throw new CodeError('Contact not found', 404);
     }
     const result = await createContact(userContact);
     return result;
@@ -16,8 +22,23 @@ const creatingContacts = async (userContact: IUser): Promise<IUser> => {
   };
 
   const deletingContact = async (id: number) => {
+    const contacts = await getAllContacts();
+    const exists = contacts.some((contact) => contact.id === id)
+    if (!exists) {
+      throw new CodeError('Contact not found', 404);
+    }
     const userDelete = await deleteContact(id);
     return userDelete;
   }
 
-  export { creatingContacts, getContacts, deletingContact };
+  const updatingContact = async (user: IUser, id: number) => {
+    const contacts = await getAllContacts();
+    const exists = contacts.some((contact) => contact.id === id)
+    if (!exists) {
+      throw new CodeError('Contact not found', 404);
+    }
+    const userUpdate = await updateContact(user, id);
+    return userUpdate;
+  }
+
+  export { creatingContacts, getContacts, deletingContact, updatingContact };

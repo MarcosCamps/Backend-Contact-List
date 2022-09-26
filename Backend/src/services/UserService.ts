@@ -1,5 +1,6 @@
+import CodeError from '../errors/CodeError';
 import { IUser } from '../interfaces/IUser';
-import { createUser, getAllUsers, deleteUser } from '../models/userModel';
+import { createUser, getAllUsers, deleteUser, updateUser } from '../models/userModel';
 
 const creatingUser = async (user: IUser): Promise<IUser> => {
   const result = await createUser(user);
@@ -12,8 +13,23 @@ const getUser = async () => {
 };
 
 const deletingUser = async (id: number) => {
+  const users = await getAllUsers();
+    const exists = users.some((user) => user.id === id)
+    if (!exists) {
+      throw new CodeError('User not found', 404);
+    }
   const userDelete = await deleteUser(id);
   return userDelete;
 }
 
-export { creatingUser, getUser, deletingUser };
+const updatingUser = async (user: IUser, id: number) => {
+  const users = await getAllUsers();
+    const exists = users.some((user) => user.id === id)
+    if (!exists) {
+      throw new CodeError('User not found', 404);
+    }
+  const userUpdate = await updateUser(user, id);
+  return userUpdate;
+}
+
+export { creatingUser, getUser, deletingUser, updatingUser };

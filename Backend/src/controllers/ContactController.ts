@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { creatingContacts, getContacts, deletingContact } from '../services/ContactService';
+import { creatingContacts, getContacts, deletingContact, updatingContact } from '../services/ContactService';
 
 const Contacts = async (req: Request, res: Response) => {
   const contact = await creatingContacts(req.body);
@@ -17,4 +17,10 @@ const contactDelete = async (req: Request, res: Response) => {
   return res.status(204).end();
 };
 
-export { Contacts, allContacts, contactDelete };
+const contactUpdate = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const updateU = await  updatingContact(req.body, Number(id));
+  return res.status(200).json(updateU);
+}
+
+export { Contacts, allContacts, contactDelete, contactUpdate };

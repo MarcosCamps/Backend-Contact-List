@@ -18,7 +18,7 @@ const createUser = async (user: IUser) => {
 const getAllUsers = async () => {
   const query = 'SELECT * from ContactsManager.Users';
   const [users] = await connection.execute<ResultSetHeader>(query);
-  return users;
+  return users as unknown as IUser[];
 };
 
 const deleteUser = async (id: number) => {
@@ -28,4 +28,11 @@ const deleteUser = async (id: number) => {
   await connection.execute<ResultSetHeader>(query, [id]);
 }
 
-export { createUser, getAllUsers, deleteUser } ;
+const updateUser = async (user: IUser, id:number) => {
+  const { username } = user;
+  const query = `UPDATE ContactsManager.Users SET username=? WHERE id =?;`;
+  const value = [ username, id ];
+  await connection.execute<ResultSetHeader>(query, value);
+}
+
+export { createUser, getAllUsers, deleteUser, updateUser } ;

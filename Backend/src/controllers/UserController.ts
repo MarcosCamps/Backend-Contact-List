@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { creatingUser, getUser, deletingUser }  from '../services/UserService';
+import { creatingUser, getUser, deletingUser, updatingUser }  from '../services/UserService';
 
 const User = async (req: Request, res: Response) => {
   const user = await creatingUser(req.body);
@@ -17,4 +17,10 @@ const userDelete = async (req: Request, res: Response) => {
   return res.status(204).end();
 };
 
-export { User, allUsers, userDelete };
+const userUpdate = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const updateU = await updatingUser(req.body, Number(id));
+  return res.status(200).json(updateU);
+}
+
+export { User, allUsers, userDelete, userUpdate };
