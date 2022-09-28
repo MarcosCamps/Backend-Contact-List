@@ -1,11 +1,17 @@
 import CodeError from '../errors/CodeError';
+import { ILoggin } from '../interfaces/ILoggin';
 import { IUser } from '../interfaces/IUser';
-import { createUser, getAllUsers, deleteUser, updateUser } from '../models/userModel';
+import { createUser, getAllUsers, deleteUser, updateUser, findUser } from '../models/userModel';
 
-const creatingUser = async (user: IUser): Promise<IUser> => {
+const creatingUser = async (user: ILoggin): Promise<ILoggin> => {
   const result = await createUser(user);
   return result;
 };
+
+const findedUser = async (user: ILoggin) => {
+  const result = await findUser(user)
+  return result;
+}
 
 const getUser = async () => {
   const users = await getAllUsers();
@@ -32,4 +38,4 @@ const updatingUser = async (user: IUser, id: number) => {
   return userUpdate;
 }
 
-export { creatingUser, getUser, deletingUser, updatingUser };
+export { creatingUser, getUser, deletingUser, updatingUser, findedUser };

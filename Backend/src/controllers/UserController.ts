@@ -1,10 +1,15 @@
 import { Request, Response } from 'express';
-import { creatingUser, getUser, deletingUser, updatingUser }  from '../services/UserService';
+import { creatingUser, getUser, deletingUser, updatingUser, findedUser }  from '../services/UserService';
 
 const User = async (req: Request, res: Response) => {
   const user = await creatingUser(req.body);
   return res.status(201).json(user);
 };
+
+const returnUser = async (req: Request, res: Response) => {
+   await findedUser(req.body);
+  return res.status(200).json({token: 'true'});
+}
 
 const allUsers = async (_req: Request, res: Response) => {
   const products = await getUser();
@@ -23,4 +28,4 @@ const userUpdate = async (req: Request, res: Response) => {
   return res.status(200).json(updateU);
 }
 
-export { User, allUsers, userDelete, userUpdate };
+export { User, allUsers, userDelete, userUpdate, returnUser };

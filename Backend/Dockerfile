@@ -4,12 +4,14 @@
 
 FROM node:16.14
 
-WORKDIR /Backend
+COPY . ./home/node/app
 
-COPY package*.json ./
+# WORKDIR /Backend
 
-RUN ["npm", "i"]
+# COPY package*.json ./
 
-COPY . .
+# RUN ["npm", "i"]
 
-CMD ["npm", "run", "start"]
+# COPY . .
+
+# CMD ["npm", "run", "start"]

@@ -3,7 +3,8 @@ CREATE SCHEMA IF NOT EXISTS ContactsManager;
 
 CREATE TABLE ContactsManager.Users (
   id INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
-  username TEXT NOT NULL
+  username VARCHAR(50),
+  password VARCHAR(50)
 );
 
 CREATE TABLE ContactsManager.Contacts (
@@ -16,11 +17,11 @@ CREATE TABLE ContactsManager.Contacts (
 );
 
 INSERT INTO
-  ContactsManager.Users (username)
+  ContactsManager.Users (username, password)
 VALUES
-  ("Marcos Campos"),
-  ("Patrícia Dias Viana"),
-  ("Allan Hubner");
+  ("marxmyers@icloud.com", "1234567"),
+  ("patriciavianad@gmail.co", "1234567"),
+  ("allanhubner@icloud.com", "1234567");
 
 INSERT INTO
   ContactsManager.Contacts (userId, email, telephone, whatsapp)

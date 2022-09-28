@@ -16,12 +16,12 @@ services:
     depends_on:
       - db
     ports:
-      - 3000:3005
+      - 3020:3020
     environment:
       MYSQL_USER: root
       MYSQL_PASSWORD: password
       MYSQL_HOST: db
-      PORT: '3005'
+      PORT: '3020'
 
   db:
     container_name: contacts_manager_db
