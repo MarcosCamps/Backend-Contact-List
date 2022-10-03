@@ -37,6 +37,7 @@ const updateContact = async (user: IUser, id:number) => {
   const query = `UPDATE ContactsManager.Contacts SET name=?, email=?, telephone=?, whatsapp=? WHERE id =?;`;
   const value = [name || null, email || null , telephone || null , whatsapp || null, id ];
   await connection.execute<ResultSetHeader>(query, value);
+  return true;
 }
 
 export { createContact, getAllContacts, deleteContact, updateContact, getAllContactsById };

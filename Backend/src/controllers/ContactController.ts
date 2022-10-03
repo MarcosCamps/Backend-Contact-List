@@ -26,6 +26,7 @@ const contactDelete = async (req: Request, res: Response) => {
 const contactUpdate = async (req: Request, res: Response) => {
   const { id } = req.params;
   const updateU = await  updatingContact(req.body, Number(id));
+  console.log(updateU);
   return res.status(200).json(updateU);
 }
 
