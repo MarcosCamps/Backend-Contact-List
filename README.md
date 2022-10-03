@@ -26,4 +26,6 @@ Subir o container do Docker
 3. Express, para o desenvolvimento da aplicação no backend.
 4. Joi, para criar schemas de validação.
 5. Jsonwebtoken, para transmitir ou armazenar de forma compacta e segura objetos JSON entre diferentes aplicações.
-5. Mysql2, para criar o banco de dados para armazenamento e manipulação de dados, definindo a relação de cada tabela.
+6. Mysql2, para criar o banco de dados para armazenamento e manipulação de dados, definindo a relação de cada tabela.
+7. Eslint, para a organização de código.
+8. TypeScript, para potencializar a linguagem JavaScript permitindo maior desempenho e produtividade na hora de executar o código.
