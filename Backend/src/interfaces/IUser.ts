@@ -1,7 +1,8 @@
 export interface IUser {
     id?: number;
     userId: number;
-    username: string;
+    name: string,
+    userEmail: string;
     email: string;
     telephone: number;
     whatsapp: boolean;

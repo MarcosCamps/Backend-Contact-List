@@ -1,10 +1,11 @@
 import { Router } from 'express';
-import { Contacts, allContacts, contactDelete, contactUpdate } from '../controllers/ContactController';
+import { contacts, allContacts, contactDelete, contactUpdate, contactsById } from '../controllers/ContactController';
 
 const routerContact = Router();
 
-routerContact.post('/', Contacts);
+routerContact.post('/', contacts);
 routerContact.get('/', allContacts);
+routerContact.get('/:id', contactsById)
 routerContact.delete('/:id', contactDelete);
 routerContact.put('/:id', contactUpdate)
 

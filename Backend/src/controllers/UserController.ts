@@ -1,14 +1,17 @@
 import { Request, Response } from 'express';
+import theToken from '../helpers/jwt';
 import { creatingUser, getUser, deletingUser, updatingUser, findedUser }  from '../services/UserService';
 
 const User = async (req: Request, res: Response) => {
   const user = await creatingUser(req.body);
-  return res.status(201).json(user);
+  const myToken = await theToken.creatingToken(user);
+  return res.status(201).json({ token: myToken});
 };
 
 const returnUser = async (req: Request, res: Response) => {
-   await findedUser(req.body);
-  return res.status(200).json({token: 'true'});
+  const [user]= await findedUser(req.body);
+  const myToken = await theToken.creatingToken(user);
+  return res.status(200).json({token: myToken, id: user.id });
 }
 
 const allUsers = async (_req: Request, res: Response) => {

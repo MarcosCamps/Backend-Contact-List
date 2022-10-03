@@ -3,22 +3,27 @@ import { IUser } from '../interfaces/IUser';
 import connection from './connection';
 
 const createContact = async (userContact: IUser) => {
-  const { userId, email, telephone, whatsapp } = userContact;
-  console.log(userContact);
-  const query = `INSERT INTO ContactsManager.Contacts (userId, email, telephone, whatsapp)
+  const { userId, name, email, telephone, whatsapp } = userContact;
+  const query = `INSERT INTO ContactsManager.Contacts (id, userId, name, email, telephone, whatsapp)
   VALUES
-(?, ?, ?, ?);`;
-const value = [ userId, email || null , telephone || null , whatsapp || null  ];
-const [{ insertId }] = await connection.execute<ResultSetHeader>(
+(NULL, ?, ?, ?, ?, ?);`;
+const value = [ userId, name || null, email || null , telephone || null , whatsapp || null  ];
+const result = await connection.execute<ResultSetHeader>(
   query,
   value,
 );
-return { id: insertId, ...userContact };
+return result;
 };
 
 const getAllContacts = async () => {
-  const query = 'SELECT * from ContactsManager.Contacts';
+  const query = 'SELECT * from ContactsManager.Contacts;';
   const [users] = await connection.execute<ResultSetHeader>(query);
+  return users as unknown as IUser[];
+};
+
+const getAllContactsById = async (id: number) => {
+  const query = 'SELECT * from ContactsManager.Contacts  WHERE userId=? ORDER BY name;';
+  const [users] = await connection.execute<ResultSetHeader>(query, [id]);
   return users as unknown as IUser[];
 };
 
@@ -28,10 +33,10 @@ const deleteContact = async (id: number) => {
 }
 
 const updateContact = async (user: IUser, id:number) => {
-  const { email, telephone, whatsapp } = user;
-  const query = `UPDATE ContactsManager.Contacts SET email=?, telephone=?, whatsapp=? WHERE id =?;`;
-  const value = [ email || null , telephone || null , whatsapp || null, id ];
+  const { name, email, telephone, whatsapp } = user;
+  const query = `UPDATE ContactsManager.Contacts SET name=?, email=?, telephone=?, whatsapp=? WHERE id =?;`;
+  const value = [name || null, email || null , telephone || null , whatsapp || null, id ];
   await connection.execute<ResultSetHeader>(query, value);
 }
 
-export { createContact, getAllContacts, deleteContact, updateContact };
+export { createContact, getAllContacts, deleteContact, updateContact, getAllContactsById };

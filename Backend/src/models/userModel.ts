@@ -4,11 +4,11 @@ import { IUser } from '../interfaces/IUser';
 import connection from './connection';
 
 const createUser = async (user: ILoggin): Promise<ILoggin> => {
-  const { username, password } = user;
-  const query = `INSERT INTO ContactsManager.Users (id, username, password)
+  const { userEmail, password } = user;
+  const query = `INSERT INTO ContactsManager.Users (id, userEmail, password)
       VALUES
     (NULL, ?, ?);`;
-  const value = [ username, password ];
+  const value = [ userEmail, password ];
   const [{ insertId }] = await connection.execute<ResultSetHeader>(
     query,
     value,
@@ -17,9 +17,10 @@ const createUser = async (user: ILoggin): Promise<ILoggin> => {
 };
 
 const findUser = async (user: ILoggin) => {
-  const { username, password } = user;
-  const query = 'SELECT * from ContactsManager.Users WHERE username=? AND password=?;';
-  const value = [ username, password ];
+  console.log(findUser)
+  const { userEmail, password } = user;
+  const query = 'SELECT * from ContactsManager.Users WHERE userEmail=? AND password=?;';
+  const value = [ userEmail, password ];
   const [users] = await connection.execute<ResultSetHeader>(query, value);
   return users as unknown as IUser[];
 }
@@ -38,9 +39,9 @@ const deleteUser = async (id: number) => {
 }
 
 const updateUser = async (user: IUser, id:number) => {
-  const { username } = user;
-  const query = `UPDATE ContactsManager.Users SET username=? WHERE id =?;`;
-  const value = [ username, id ];
+  const { userEmail } = user;
+  const query = `UPDATE ContactsManager.Users SET userEmail=? WHERE id =?;`;
+  const value = [ userEmail, id ];
   await connection.execute<ResultSetHeader>(query, value);
 }
 

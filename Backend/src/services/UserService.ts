@@ -8,9 +8,9 @@ const creatingUser = async (user: ILoggin): Promise<ILoggin> => {
   return result;
 };
 
-const findedUser = async (user: ILoggin) => {
-  const result = await findUser(user)
-  return result;
+const findedUser = async (user: ILoggin): Promise<ILoggin[]> => {
+  const result = await findUser(user);
+  return result as unknown as ILoggin[];
 }
 
 const getUser = async () => {

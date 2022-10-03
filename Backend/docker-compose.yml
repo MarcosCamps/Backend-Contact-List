@@ -16,7 +16,7 @@ services:
     depends_on:
       - db
     ports:
-      - 3020:3020
+      - 3010:3010
     environment:
       MYSQL_USER: root
       MYSQL_PASSWORD: password

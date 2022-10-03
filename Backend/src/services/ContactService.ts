@@ -1,25 +1,26 @@
 import CodeError from '../errors/CodeError';
 import { IUser } from '../interfaces/IUser';
-import { createContact, getAllContacts, deleteContact, updateContact } from '../models/contactModel';
+import { createContact, getAllContacts, deleteContact, updateContact, getAllContactsById } from '../models/contactModel';
 
 const creatingContacts = async (userContact: IUser): Promise<IUser> => {
     const { userId } = userContact;
     if (!userId) {
       throw new CodeError('UserId not informed', 400);
     }
-    const contacts = await getAllContacts();
-    const exists = contacts.some((contact) => contact.id === userId)
-    if (!exists) {
-      throw new CodeError('Contact not found', 404);
-    }
-    const result = await createContact(userContact);
-    return result;
+    const [result] = await createContact(userContact);
+    return { id: result.insertId, ...userContact}
   };
 
   const getContacts = async () => {
     const users = await getAllContacts();
     return users;
   };
+
+  const getContactsById = async (id: number) => {
+    const userId = await getAllContactsById(id);
+    console.log(userId);
+    return userId;
+  }
 
   const deletingContact = async (id: number) => {
     const contacts = await getAllContacts();
@@ -41,4 +42,4 @@ const creatingContacts = async (userContact: IUser): Promise<IUser> => {
     return userUpdate;
   }
 
-  export { creatingContacts, getContacts, deletingContact, updatingContact };
+  export { creatingContacts, getContacts, deletingContact, updatingContact, getContactsById };

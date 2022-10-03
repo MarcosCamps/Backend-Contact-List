@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { creatingContacts, getContacts, deletingContact, updatingContact } from '../services/ContactService';
+import { creatingContacts, getContacts, deletingContact, updatingContact, getContactsById } from '../services/ContactService';
 
-const Contacts = async (req: Request, res: Response) => {
+const contacts = async (req: Request, res: Response) => {
   const contact = await creatingContacts(req.body);
   return res.status(201).json(contact);
 };
@@ -10,6 +10,12 @@ const allContacts = async (_req: Request, res: Response) => {
   const products = await getContacts();
   res.status(200).json(products);
 };
+
+const contactsById = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const userId = await getContactsById(Number(id));
+  res.status(200).json(userId);
+}
 
 const contactDelete = async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -23,4 +29,4 @@ const contactUpdate = async (req: Request, res: Response) => {
   return res.status(200).json(updateU);
 }
 
-export { Contacts, allContacts, contactDelete, contactUpdate };
+export { contacts, allContacts, contactDelete, contactUpdate, contactsById };
