@@ -6,6 +6,12 @@ Clonar este repositório do back.
 
     git@github.com:MarcosCamps/Backend-Contact-List.git
     
+    
+Entrar na pasta.
+
+
+     cd Backend-Contact-List/backend
+    
  
  Abrir terminal e instalar as dependencias.
  
@@ -17,6 +23,39 @@ Subir o container do Docker
 
 
      docker-compose up -d
+     
+     
+Entrar no container usando o comando.
+     
+   
+     
+     docker exec -it contacts_manager bash
+     
+     
+     
+Para rodar a aplicação. 
+
+
+     npm run start:dev 
+     
+ou
+     
+     npm run dev
+     
+     
+     
+# Rodando o banco de dados.
+
+
+Copiar o conteúdo do arquivo ContactsManager.sql e executá-lo no Workbench, dbeaver ou similares.
+
+
+# Agora é hora de executar o Frontend
+
+Siga as instruções no link:
+
+https://github.com/MarcosCamps/Frontend-Contact-List
+
 
 
 # Tecnologias Utilizadas no Backend
